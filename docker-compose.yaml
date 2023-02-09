@@ -2,6 +2,8 @@ version: "3.9"
 services:
   postgres:
     image: postgres:15-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     env_file:
       - .env
   backend:
@@ -36,4 +38,7 @@ services:
     entrypoint: "yarn"
 volumes:
   backend:
-  yarn:
+  frontend:
+  yarn-backend:
+  yarn-frontend:
+  pgdata:
