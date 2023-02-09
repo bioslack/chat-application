@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15-alpine
+    env_file:
+      - .env
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+  frontend:
+    build: 
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+  yarn-backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/app
+    entrypoint: "yarn"
+  yarn-frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+    entrypoint: "yarn"
+volumes:
+  backend:
+  yarn:
