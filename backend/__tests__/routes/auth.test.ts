@@ -19,7 +19,7 @@ describe('Testing /auth routes', () => {
       .send(user);
 
     expect(response.status).toBe(400);
-    expect(response.body.message).toBe('Duplicate user');
+    expect(response.body.message).toBe('User exists already');
   });
 
   it('Should fails to sign in with no nickname', async () => {
