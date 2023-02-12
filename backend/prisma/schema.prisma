@@ -16,7 +16,7 @@ model User {
   nickname   String    @unique
   password   String
   createdAt  DateTime  @default(now())
-  lastLogin  DateTime
+  lastLogin  DateTime  @default(now())
   messages   Message[] @relation("received")
   recipients Message[] @relation("sent")
 }
