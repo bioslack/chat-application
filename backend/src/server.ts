@@ -4,11 +4,13 @@ import userRouter from './routes/user';
 import messagesRouter from './routes/messages';
 import passport from './middlewares/passport';
 import expressSession from 'express-session';
+import http from 'http';
 
-const app = express();
+const server = express();
+const app = http.createServer(server);
 
-app.use(express.json());
-app.use(
+server.use(express.json());
+server.use(
   expressSession({
     secret: process.env.EXPRESS_SESSION_SECRET || 'testing',
     resave: false,

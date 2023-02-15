@@ -1,3 +1,4 @@
-import app from "./server";
+import app from './server';
+import './socket';
 
 app.listen(8000);
