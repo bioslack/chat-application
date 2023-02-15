@@ -1,6 +1,7 @@
 import express from 'express';
 import authRouter from './routes/auth';
 import userRouter from './routes/user';
+import messagesRouter from './routes/messages';
 import passport from './middlewares/passport';
 import expressSession from 'express-session';
 
@@ -14,9 +15,10 @@ app.use(
     saveUninitialized: false,
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
-app.use('/chat-app/v1/auth', authRouter);
-app.use('/chat-app/v1', userRouter);
+server.use(passport.initialize());
+server.use(passport.session());
+server.use('/chat-app/v1/auth', authRouter);
+server.use('/chat-app/v1', messagesRouter);
+server.use('/chat-app/v1', userRouter);
 
 export default app;
