@@ -1,0 +1,56 @@
+.chat-balloon {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: #fff;
+  color: #454545;
+  margin: 30px;
+  padding: 10px;
+  border-radius: 5px;
+  // border: 1px solid #cdcdcd;
+  box-shadow: 0 1px 10px #dfdfdf;
+  width: 350px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-right: 26px solid #fff;
+    border-bottom: 19px solid transparent;
+    margin: -10px 0 0 -30px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  &__body {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  &__time {
+    display: inline-block;
+    max-width: fit-content;
+    align-self: flex-end;
+    background-color: #969696;
+    color: #fff;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 5px;
+  }
+
+  &--sent {
+    align-self: flex-end;
+    background-color: $color-primary;
+    &::before {
+      border-left: 26px solid $color-primary;
+      border-right: none;
+      right: -20px;
+    }
+    color: #fff;
+  }
+}

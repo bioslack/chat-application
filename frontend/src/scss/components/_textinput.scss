@@ -1,0 +1,42 @@
+.textinput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+
+  &__label {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  &__input {
+    background-color: $text-input-bg-color;
+    font-size: 14px;
+    padding: 11px 15px;
+    outline: none;
+    border: 1px solid $text-input-border-color;
+    border-radius: 5px;
+    width: 100%;
+    font-weight: 400;
+
+    &::placeholder {
+      color: $text-input-muted;
+    }
+
+    &:focus {
+      border: 1px solid $text-input-border-color-focus;
+    }
+  }
+
+  &__caption {
+    font-size: 12px;
+    margin-top: 6px;
+    font-weight: 500;
+    color: $text-input-muted;
+
+    &--error {
+      color: #f13d4c;
+    }
+  }
+}

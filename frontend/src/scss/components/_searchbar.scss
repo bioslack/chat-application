@@ -1,0 +1,25 @@
+.searchbar {
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid #c9c9c9;
+
+  &__input {
+    flex: 1;
+    padding: 15px 25px;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    height: 64px;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    background-color: $color-primary;
+    color: #fff;
+    font-size: 28px;
+    border: none;
+  }
+}

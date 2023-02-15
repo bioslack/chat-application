@@ -1,0 +1,14 @@
+.chat-area {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  overflow-y: none;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    background-color: #f0efef;
+  }
+}

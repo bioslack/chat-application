@@ -1,0 +1,8 @@
+.chat {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow: none;
+  background-color: #f5f5f5;
+}

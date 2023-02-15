@@ -1,0 +1,98 @@
+.profile-bar {
+  display: flex;
+  position: relative;
+  background-color: $color-primary;
+  align-items: center;
+  color: #fff;
+  // box-shadow: 0 -3px 5px #999;
+  height: 65px;
+  padding-left: 10px;
+
+  .profile-bar__left {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background-color: #fff;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  .profile-bar__right {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  &__menu {
+    position: absolute;
+    z-index: 99;
+    right: 25px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    font-size: 28px;
+    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  & > input[type="checkbox"] {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    right: 37px;
+    transform: scale(2);
+    margin: auto 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &:hover + .profile-bar__menu {
+      background-color: #fff5;
+    }
+
+    &:checked ~ .floatmenu {
+      display: block;
+    }
+  }
+}
+
+.floatmenu {
+  position: absolute;
+  width: 200px;
+  display: none;
+  background-color: #fff;
+  color: #000;
+  top: -150px;
+  right: 40px;
+  box-shadow: 0 2px 5px #555;
+  border-radius: 5px;
+
+  & > ul {
+    list-style: none;
+    font-size: 14px;
+
+    & li {
+      padding: 15px;
+      cursor: pointer;
+
+      &:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      &:hover {
+        background-color: #dfdfdf;
+      }
+    }
+  }
+}

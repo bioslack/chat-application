@@ -1,0 +1,50 @@
+.chat-header {
+  display: flex;
+  position: relative;
+  background-color: $color-primary;
+  height: 65px;
+  padding: 10px;
+  align-items: center;
+
+  &__left {
+    height: 45px;
+    width: 45px;
+    background-color: #fdfdfd;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+  }
+
+  &__name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__caption {
+    text-align: left;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  &__sidebar-button {
+    position: absolute;
+    display: none;
+    top: 0;
+    bottom: 0;
+    right: 25px;
+    margin: auto 0;
+    color: #fff;
+    cursor: pointer;
+    @include respond(tab-port) {
+      display: block;
+    }
+  }
+}

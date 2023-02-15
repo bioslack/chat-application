@@ -1,0 +1,28 @@
+.button {
+  background-color: $color-primary;
+  color: #fff;
+  width: 100%;
+  padding: 15px;
+  font-weight: 700;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.34, 0.02, 0.35, 0.97);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 2px #b8b8b8;
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px #b8b8b8;
+  }
+
+  &:disabled {
+    background-color: $color-disabled;
+    box-shadow: none;
+    transform: translateY(0);
+  }
+}
