@@ -12,11 +12,9 @@ describe('Testing /user route', () => {
 
   beforeEach(async () => {
     agent = request.agent(app);
-    await agent.post('/chat-app/v1/auth/signup').send(credentials);
-    const signinRes = await agent.post('/chat-app/v1/auth/signin').send({
-      nickname: 'luispereira',
-      password: '12345678',
-    });
+    const signinRes = await agent
+      .post('/chat-app/v1/auth/signin')
+      .send(credentials);
     cookie = signinRes.headers['set-cookie'][0];
   });
 

@@ -3,6 +3,8 @@ import { execSync } from 'child_process';
 import { join } from 'path';
 import { URL } from 'url';
 import { v4 as uuid } from 'uuid';
+import fs from 'fs/promises';
+import path from 'path';
 
 const generateDatabaseURL = (schema: string) => {
   if (!process.env.DATABASE_URL) throw new Error('no database url provided');
@@ -27,13 +29,24 @@ export const prisma = new PrismaClient({
   datasources: { db: { url } },
 });
 
-beforeEach(() => {
+jest.setTimeout(30000);
+
+beforeEach(async () => {
   execSync(`${prismaBinary} db push`, {
     env: {
       ...process.env,
       DATABASE_URL: generateDatabaseURL(schemaId),
     },
   });
+
+  const seed = JSON.parse(
+    await fs.readFile(path.join(__dirname, 'seed.json'), 'utf-8')
+  );
+
+  for (let tbl in seed) {
+    // @ts-ignore
+    await prisma[tbl].createMany({ data: seed[tbl] });
+  }
 });
 
 afterEach(async () => {

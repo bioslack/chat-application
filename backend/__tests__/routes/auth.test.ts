@@ -2,7 +2,7 @@ import app from '../../src/server';
 import request from 'supertest';
 
 describe('Testing /auth routes', () => {
-  const user = { nickname: 'luispereira', password: '12345678' };
+  const user = { nickname: 'alberteinstein', password: '12345678' };
 
   it('Should register a new unique user', async () => {
     const response = await request(app)

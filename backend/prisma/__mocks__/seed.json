@@ -1,0 +1,19 @@
+{
+  "user": [
+    {
+      "name": "Luis Pereira",
+      "nickname": "luispereira",
+      "password": "$2b$12$NaWfN/dcrAzXFpye3/KVrumCGWfUNlNfaI8LdCz7F9lVw2JhSxARy"
+    },
+    {
+      "name": "John Doe",
+      "nickname": "johndoe",
+      "password": "$2b$12$0zgMKMCmRusbw4hYzbb.GeiubLm64h2OScTsTizB/36zUN8vRmPke"
+    },
+    {
+      "name": "Jane Roe",
+      "nickname": "janeroe",
+      "password": "$2b$12$8WeR2L4iqgvJw.KEGdghy.AMmHgAwQq9iW.BpsaDvhNB3cJ/rIYJK"
+    }
+  ]
+}
