@@ -3,25 +3,25 @@ import {
   FormEventHandler,
   useEffect,
   useReducer,
-} from "react";
-import TextInput from "../../components/TextInput";
-import Loading from "../../components/Loading";
-import Button from "../../components/Button";
-import Logo from "../../assets/img/logo.png";
-import { Link } from "react-router-dom";
-import { FormLoginField, FormLoginState, reducer } from "./reducer";
-import { prepare, validate } from "./validator";
+} from 'react';
+import TextInput from '../../components/TextInput';
+import Loading from '../../components/Loading';
+import Button from '../../components/Button';
+import Logo from '../../assets/img/logo.png';
+import { Link } from 'react-router-dom';
+import { FormLoginField, FormLoginState, reducer } from './reducer';
+import { prepare, validate } from './validator';
 
 const initialState: FormLoginState = {
   nickname: {
-    value: "",
-    caption: "",
-    captionColor: "muted",
+    value: '',
+    caption: '',
+    captionColor: 'muted',
   },
   password: {
-    value: "",
-    caption: "",
-    captionColor: "muted",
+    value: '',
+    caption: '',
+    captionColor: 'muted',
   },
   disabled: true,
 };
@@ -31,17 +31,31 @@ const Login = () => {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    const validation = validate("nickname", "exemplo@email.com", prepare(state));
-
-    if (Boolean(validation.length)) {
-      alert("Error");
-      return;
-    }
+    const data = prepare(state);
+    fetch('http://localhost:8000/chat-app/v1/auth/signin', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        alert(res.status);
+        return res.json();
+      })
+      .then((res) => {
+        alert(res.message);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+    alert('Finished');
+    // if (Boolean(validation.length)) {
+    //   alert("Error");
+    //   return;
+    // }
   };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     dispatch({
-      type: "ENTER_TEXT",
+      type: 'ENTER_TEXT',
       key: e.target.id as FormLoginField,
       value: e.target.value,
     });
@@ -78,10 +92,10 @@ const Login = () => {
         margins={[0, 0, 10, 0]}
       />
       <Button label="Entrar" type="submit" disabled={state.disabled} />
-      <div style={{ marginTop: 15, fontSize: 12, alignSelf: "flex-start" }}>
+      <div style={{ marginTop: 15, fontSize: 12, alignSelf: 'flex-start' }}>
         Não tem registro ainda? <Link to="/signup">Cadastrar</Link>
       </div>
-      <div style={{ marginTop: 15, fontSize: 12, alignSelf: "flex-start" }}>
+      <div style={{ marginTop: 15, fontSize: 12, alignSelf: 'flex-start' }}>
         Esqueci minha senha. <Link to="/forgot">Recuperar</Link>
       </div>
     </form>
