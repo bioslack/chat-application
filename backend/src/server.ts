@@ -42,6 +42,9 @@ server.use(
     secret: process.env.EXPRESS_SESSION_SECRET || 'testing',
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      sameSite: "lax"
+    }
   })
 );
 server.use(passport.initialize());

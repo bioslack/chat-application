@@ -37,6 +37,8 @@ authRouter.post('/signin', (req, res, next) => {
       if (err) {
         return next(err);
       }
+      delete user.password;
+      delete user.createdAt;
       return res.status(200).send({ message: 'Success', user });
     });
   })(req, res, next);
