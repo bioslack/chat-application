@@ -11,6 +11,7 @@ import Logo from '../../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import { FormLoginField, FormLoginState, reducer } from './reducer';
 import { prepare, validate } from './validator';
+import useAuth from '../../hooks/useAuth';
 
 const initialState: FormLoginState = {
   nickname: {
@@ -28,29 +29,14 @@ const initialState: FormLoginState = {
 
 const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { signin } = useAuth()
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    const data = prepare(state);
-    fetch('http://localhost:8000/chat-app/v1/auth/signin', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        alert(res.status);
-        return res.json();
-      })
-      .then((res) => {
-        alert(res.message);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-    alert('Finished');
-    // if (Boolean(validation.length)) {
-    //   alert("Error");
-    //   return;
-    // }
+    console.log(validate("nickname", state.nickname.value, prepare(state)));
+    signin(prepare(state)).catch((err) => {
+      alert(err.message);
+    });
   };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) =>

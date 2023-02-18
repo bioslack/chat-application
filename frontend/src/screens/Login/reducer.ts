@@ -24,8 +24,8 @@ type FormLoginAction =
   | { type: "RESET" };
 
 const errorMessages = {
-  nickname: "Precisa ser um email válido",
-  password: "A senha tem conter pelo menos 8 caracteres",
+  nickname: "Precisa conter pelo menos 4 caracteres",
+  password: "Precisa conter pelo menos 8 caracteres",
 };
 
 export const reducer = (
