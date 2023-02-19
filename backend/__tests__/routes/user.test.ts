@@ -41,4 +41,13 @@ describe('Testing /user route', () => {
 
     expect(response.status).toBe(403);
   });
+
+  it('Should retrieve 2 users', async () => {
+    const response = await agent
+      .get('/chat-app/v1/users/oe')
+      .set('Cookie', cookie);
+    
+    expect(response.status).toBe(200);
+    expect(response.body.users.length).toBe(2);
+  });
 });

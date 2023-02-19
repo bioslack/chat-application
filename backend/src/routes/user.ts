@@ -77,4 +77,36 @@ userRouter.get('/users', async (req, res) => {
   });
 });
 
+userRouter.get('/users/:search', async (req, res) => {
+  const { search } = req.params;
+  if (!req.isAuthenticated())
+    return res.status(403).send({ message: 'Forbidden' });
+
+  if (!req.user) return res.status(403).send({ message: 'Forbidden' });
+
+  const currentUser = req.user as User;
+
+  const users = await prisma.user.findMany({
+    where: {
+      NOT: {
+        nickname: currentUser.nickname,
+      },
+      AND: {
+        OR: [
+          { name: { contains: `${search}`, mode: 'insensitive' } },
+          { nickname: { contains: `${search}`, mode: 'insensitive' } },
+        ],
+      },
+    },
+  });
+
+  return res.status(200).send({
+    users: users.map((u) => ({
+      nickname: u.nickname,
+      name: u.name,
+      lastLogin: u.lastLogin,
+    })),
+  });
+});
+
 export default userRouter;
