@@ -1,11 +1,11 @@
-import { useRef } from "react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { useRef } from 'react';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
+import useAuth from '../../hooks/useAuth';
+
+import Picture from '../../assets/img/default.png';
 
 const FloatMenu = () => {
-
-  const handleLogout = () => {
-    
-  };
+  const handleLogout = () => {};
 
   return (
     <div className="floatmenu">
@@ -20,6 +20,7 @@ const FloatMenu = () => {
 
 const ProfileBar = () => {
   const checkboxRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth();
 
   const handleBlurCheckbox = () => {
     setTimeout(() => {
@@ -31,10 +32,10 @@ const ProfileBar = () => {
     <div className="profile-bar">
       <img
         className="profile-bar__left"
-        // src={`${API_URL}/img/${user?.picture}`}
+        src={Picture}
         alt="Perfil"
       />
-      <div className="profile-bar__right">{"Jane Roe"}</div>
+      <div className="profile-bar__right">{user!.name}</div>
       <input ref={checkboxRef} onBlur={handleBlurCheckbox} type="checkbox" />
       <BiDotsVerticalRounded className="profile-bar__menu" />
       <FloatMenu />

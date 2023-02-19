@@ -1,8 +1,13 @@
-import { MouseEventHandler, useRef, forwardRef } from "react";
-import { BsThreeDots } from "react-icons/bs";
+import { MouseEventHandler, useRef, forwardRef } from 'react';
+import { BsThreeDots } from 'react-icons/bs';
+
+import Profile from '../../assets/img/default.png';
+import { User } from '../../context/AuthProvider';
+import useSidebar from '../../hooks/useSidebar';
+import useUsers from '../../hooks/useUsers';
 
 interface RoomProps {
-  user: {};
+  user: User;
   onClick?: () => {};
 }
 
@@ -21,6 +26,8 @@ const FloatMenu = forwardRef<HTMLDivElement>((props, ref) => {
 const Room = ({ user }: RoomProps) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const contextMenu = useRef<HTMLDivElement>(null);
+  const { setSelectedUser } = useUsers();
+  const { setShowSidebar } = useSidebar();
 
   const handleBlurCheckbox = () => {
     setTimeout(() => {
@@ -43,19 +50,16 @@ const Room = ({ user }: RoomProps) => {
 
   const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // @ts-ignore
-    if (e.target.classList.contains("room__menu-checkbox")) return;
+    if (e.target.classList.contains('room__menu-checkbox')) return;
     // @ts-ignore
-    if (e.target.classList.contains("context-menu__item")) return;
-    // dispatch(resetMessage());
+    if (e.target.classList.contains('context-menu__item')) return;
+    setSelectedUser(user);
+    setShowSidebar(false);
   };
 
   return (
     <div className="room" onClick={handleClick}>
-      <img
-        className="room__left"
-        src={`http://pudim.com.br/pudim.jpg`}
-        alt={"pudim"}
-      />
+      <img className="room__left" src={Profile} alt={user.name} />
       <div className="room__right">
         <input
           ref={checkboxRef}
@@ -66,8 +70,8 @@ const Room = ({ user }: RoomProps) => {
         />
         <BsThreeDots className="room__menu" />
         <FloatMenu ref={contextMenu} />
-        <div className="room__title">{"Jane Roe"}</div>
-        <div className="room__message">{"Hello"}</div>
+        <div className="room__title">{user.name}</div>
+        <div className="room__message">&nbsp;</div>
       </div>
     </div>
   );

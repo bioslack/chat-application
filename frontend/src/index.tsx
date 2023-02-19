@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import AuthProvider from './context/AuthProvider';
+import SidebarProvider from './context/SidebarProvider';
+import UsersProvider from './context/UsersProvider';
 
 import './scss/main.scss';
 
@@ -13,7 +15,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <UsersProvider>
+          <SidebarProvider>
+            <App />
+          </SidebarProvider>
+        </UsersProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

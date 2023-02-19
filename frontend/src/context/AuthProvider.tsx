@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface User {
+export interface User {
   id: number;
   name: string;
   nickname: string;
