@@ -61,7 +61,8 @@ const AuthProvider = (props: { children: ReactNode }) => {
   };
 
   const signup = async (data: SignupData) => {
-    const response = await fetch('http://localhost:8000/chat-app/v1/signup', {
+    setIsLoading(true);
+    const response = await fetch('http://localhost:8000/chat-app/v1/auth/signup', {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(data),
@@ -69,6 +70,13 @@ const AuthProvider = (props: { children: ReactNode }) => {
         'Content-Type': 'application/json',
       },
     });
+    setIsLoading(false);
+
+    if (response.status >= 400 && response.status <= 499)
+      throw new Error("Credenciais inválidas.");
+
+    if (response.status !== 200)
+      throw new Error("Não foi possível acessar o servidor.");
 
     const jsonRes = await response.json();
     storeUserData(jsonRes.user);

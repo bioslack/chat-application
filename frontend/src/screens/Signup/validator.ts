@@ -3,16 +3,14 @@ import { FormSignupField, FormSignupState } from "./reducer";
 
 const schema = Joi.object({
   name: Joi.string().not(""),
-  email: Joi.string().email({ tlds: { allow: false } }),
+  nickname: Joi.string().min(4),
   password: Joi.string().min(8),
-  confirmPassword: Joi.ref("password"),
 });
 
 export const prepare = (state: FormSignupState) => ({
   name: state.name.value,
-  email: state.email.value,
+  nickname: state.nickname.value,
   password: state.password.value,
-  confirmPassword: state.confirmPassword.value,
 });
 
 export const validate = (
