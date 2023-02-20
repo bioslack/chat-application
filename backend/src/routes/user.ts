@@ -70,6 +70,7 @@ userRouter.get('/users', async (req, res) => {
 
   return res.status(200).send({
     users: users.map((u) => ({
+      id: u.id,
       nickname: u.nickname,
       name: u.name,
       lastLogin: u.lastLogin,
