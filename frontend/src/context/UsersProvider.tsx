@@ -45,7 +45,7 @@ const UsersProvider = (props: { children: ReactNode }) => {
     setIsLoading(false);
 
     const resJson = await response.json();
-    setUsers(resJson.users);
+    setUsers(resJson.users || []);
   }, []);
 
   useEffect(() => {
