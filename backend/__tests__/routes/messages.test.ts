@@ -1,8 +1,5 @@
 import supertest, { SuperAgentTest } from 'supertest';
 import app from '../../src/server';
-import { prisma } from '../../prisma/__mocks__/index';
-import { readFile } from 'fs/promises';
-import path from 'path';
 
 describe('test /messages routes', () => {
   let cookie: string;
