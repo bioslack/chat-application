@@ -14,9 +14,8 @@ class User {
 
   async send(message: Message) {
     this.socket.emit('receive-message', message);
-    // delete message.id;
     await prisma.message.create({
-      data: message,
+      data: { ...message, id: undefined },
     });
   }
 
@@ -44,7 +43,7 @@ class ServerSocket {
         self.add(new User(socket, id));
       });
 
-      socket.on('send-message', (message: Message, members: string[]) => {
+      socket.on('send-message', (message: Message) => {
         self.users.forEach((u) => {
           if (u.id === message.receiverId) {
             u.send(message);
