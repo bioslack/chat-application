@@ -1,8 +1,10 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
-import { IoSendSharp } from "react-icons/io5";
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { IoSendSharp } from 'react-icons/io5';
+import useChat from '../../hooks/useChat';
 
 const MessageInput = () => {
-  const [messageInput, setMessageInput] = useState("");
+  const [messageInput, setMessageInput] = useState('');
+  const { sendMessage } = useChat();
 
   const handleChangeMessageInput: ChangeEventHandler<HTMLTextAreaElement> = (
     e
@@ -10,7 +12,9 @@ const MessageInput = () => {
 
   const handleSendMessage: FormEventHandler = (e) => {
     e.preventDefault();
-    setMessageInput("");
+    setMessageInput('');
+
+    sendMessage(messageInput);
   };
 
   return (

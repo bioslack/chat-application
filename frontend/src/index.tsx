@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import AuthProvider from './context/AuthProvider';
 import SidebarProvider from './context/SidebarProvider';
+import ChatProvider from './context/ChatProvider';
 import UsersProvider from './context/UsersProvider';
 
 import './scss/main.scss';
@@ -17,7 +18,9 @@ root.render(
       <AuthProvider>
         <UsersProvider>
           <SidebarProvider>
-            <App />
+            <ChatProvider>
+              <App />
+            </ChatProvider>
           </SidebarProvider>
         </UsersProvider>
       </AuthProvider>
