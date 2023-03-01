@@ -5,6 +5,15 @@ import { prisma } from '../../prisma/';
 
 const userRouter = Router();
 
+userRouter.get("/user", async(req, res) => {
+  if (!req.isAuthenticated())
+    return res.status(403).send({ message: "Forbidden" })
+
+  if (!req.user) return res.status(403).send({ message: "Forbidden" });
+
+  return res.status(200).send({ message: "Success", user: req.user })
+})
+
 userRouter.post('/user', async (req, res) => {
   if (!req.isAuthenticated())
     return res.status(403).send({ message: 'Forbidden' });
