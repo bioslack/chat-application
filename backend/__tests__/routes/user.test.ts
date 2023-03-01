@@ -18,6 +18,14 @@ describe('Testing /user route', () => {
     cookie = signinRes.headers['set-cookie'][0];
   });
 
+  it("Should get user's profile data", async() => {
+    const response = await agent
+      .get("/chat-app/v1/user")
+      .set("Cookie", cookie)
+
+    expect(response.body.user.name).toBe("Luis Pereira");
+  })
+
   it('Should get users list', async () => {
     const response = await agent
       .get('/chat-app/v1/users')

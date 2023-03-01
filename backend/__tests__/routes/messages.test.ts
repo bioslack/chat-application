@@ -13,16 +13,15 @@ describe('test /messages routes', () => {
   beforeEach(async () => {
     agent = supertest.agent(app);
 
-    const signinRes = await agent.post('/chat-app/v1/auth/signin').send({
-      nickname: 'luispereira',
-      password: '12345678',
-    });
+    const signinRes = await agent
+      .post('/chat-app/v1/auth/signin')
+      .send(credentials);
     cookie = signinRes.headers['set-cookie'][0];
   });
 
   it('Should get messages', async () => {
     const response = await agent
-      .get('/chat-app/v1/messages')
+      .get('/chat-app/v1/messages/1')
       .set('Cookie', cookie);
 
     expect(response.status).toBe(200);
