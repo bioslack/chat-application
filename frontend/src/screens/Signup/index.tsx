@@ -1,7 +1,12 @@
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
-import { Link } from 'react-router-dom';
-import { ChangeEventHandler, FormEventHandler, useReducer } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useEffect,
+  useReducer,
+} from 'react';
 import { FormSignupField, FormSignupState, reducer } from './reducer';
 import { prepare } from './validator';
 import useAuth from '../../hooks/useAuth';
@@ -27,7 +32,8 @@ const initialState: FormSignupState = {
 
 const Signup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { signup } = useAuth();
+  const { signup, user } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit: FormEventHandler = (e) => {
     signup(prepare(state)).catch((err) => {
@@ -42,6 +48,12 @@ const Signup = () => {
       key: e.target.id as FormSignupField,
       value: e.target.value,
     });
+    
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   return (
     <form autoComplete="off" className="login" onSubmit={onSubmit}>

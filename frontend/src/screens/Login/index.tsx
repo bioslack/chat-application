@@ -8,7 +8,7 @@ import TextInput from '../../components/TextInput';
 import Loading from '../../components/Loading';
 import Button from '../../components/Button';
 import Logo from '../../assets/img/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormLoginField, FormLoginState, reducer } from './reducer';
 import { prepare, validate } from './validator';
 import useAuth from '../../hooks/useAuth';
@@ -29,11 +29,12 @@ const initialState: FormLoginState = {
 
 const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { signin } = useAuth()
+  const { signin, user } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    console.log(validate("nickname", state.nickname.value, prepare(state)));
+    console.log(validate('nickname', state.nickname.value, prepare(state)));
     signin(prepare(state)).catch((err) => {
       alert(err.message);
     });
@@ -47,9 +48,10 @@ const Login = () => {
     });
 
   useEffect(() => {
-    const controller = new AbortController();
-    return () => controller.abort();
-  }, []);
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   if (false) return <Loading />;
 

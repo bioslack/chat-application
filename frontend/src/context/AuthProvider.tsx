@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface User {
@@ -29,6 +29,20 @@ const AuthProvider = (props: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const refreshSession = async () => {
+    const response = await fetch('http://localhost:8000/chat-app/v1/user', {
+      method: 'GET',
+    });
+    if (response.status !== 200) return;
+
+    const resJson = await response.json();
+    setUser(resJson.user);
+  };
+
+  useEffect(() => {
+    refreshSession();
+  }, []);
+
   const storeUserData = (data: User) => {
     localStorage.setItem('user', JSON.stringify(data));
     setUser(data);
@@ -51,10 +65,10 @@ const AuthProvider = (props: { children: ReactNode }) => {
     setIsLoading(false);
 
     if (response.status >= 400 && response.status <= 499)
-      throw new Error("Credenciais inválidas.");
+      throw new Error('Credenciais inválidas.');
 
     if (response.status !== 200)
-      throw new Error("Não foi possível acessar o servidor.");
+      throw new Error('Não foi possível acessar o servidor.');
 
     const jsonRes = await response.json();
     storeUserData(jsonRes.user);
@@ -62,21 +76,24 @@ const AuthProvider = (props: { children: ReactNode }) => {
 
   const signup = async (data: SignupData) => {
     setIsLoading(true);
-    const response = await fetch('http://localhost:8000/chat-app/v1/auth/signup', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      'http://localhost:8000/chat-app/v1/auth/signup',
+      {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     setIsLoading(false);
 
     if (response.status >= 400 && response.status <= 499)
-      throw new Error("Credenciais inválidas.");
+      throw new Error('Credenciais inválidas.');
 
     if (response.status !== 200)
-      throw new Error("Não foi possível acessar o servidor.");
+      throw new Error('Não foi possível acessar o servidor.');
 
     const jsonRes = await response.json();
     storeUserData(jsonRes.user);
