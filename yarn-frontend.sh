@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker compose run --rm yarn-frontend $1
+docker compose run --rm yarn-frontend $*
