@@ -50,4 +50,12 @@ authRouter.post('/signin', (req, res, next) => {
   })(req, res, next);
 });
 
+
+authRouter.delete("/signout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    return res.status(204).send();
+  });
+})
+
 export default authRouter;
