@@ -15,12 +15,14 @@ interface AuthContextData {
   user?: User;
   signin: (data: SigninData) => Promise<void>;
   signup: (data: SignupData) => Promise<void>;
+  signout: () => Promise<void>;
   isLoading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextData>({
   signin: async () => {},
   signup: async () => {},
+  signout: async () => {},
   isLoading: false,
 });
 
@@ -33,7 +35,10 @@ const AuthProvider = (props: { children: ReactNode }) => {
     const response = await fetch('http://localhost:8000/chat-app/v1/user', {
       method: 'GET',
     });
-    if (response.status !== 200) return;
+    if (response.status !== 200) {
+      setUser(undefined);
+      return;
+    }
 
     const resJson = await response.json();
     setUser(resJson.user);
@@ -99,8 +104,16 @@ const AuthProvider = (props: { children: ReactNode }) => {
     storeUserData(jsonRes.user);
   };
 
+  const signout = async () => {
+    await fetch('http://localhost:8000/chat-app/v1/auth/signup', {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    setUser(undefined);
+  };
+
   return (
-    <AuthContext.Provider value={{ signin, signup, user, isLoading }}>
+    <AuthContext.Provider value={{ signin, signup, signout, user, isLoading }}>
       {props.children}
     </AuthContext.Provider>
   );

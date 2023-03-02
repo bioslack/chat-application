@@ -5,7 +5,6 @@ import {
   useReducer,
 } from 'react';
 import TextInput from '../../components/TextInput';
-import Loading from '../../components/Loading';
 import Button from '../../components/Button';
 import Logo from '../../assets/img/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
@@ -53,8 +52,6 @@ const Login = () => {
     }
   }, [user, navigate]);
 
-  if (false) return <Loading />;
-
   return (
     <form autoComplete="off" className="login" onSubmit={onSubmit}>
       <img src={Logo} alt="Flyer" style={{ height: 150, marginBottom: 25 }} />
@@ -82,9 +79,6 @@ const Login = () => {
       <Button label="Entrar" type="submit" disabled={state.disabled} />
       <div style={{ marginTop: 15, fontSize: 12, alignSelf: 'flex-start' }}>
         Não tem registro ainda? <Link to="/signup">Cadastrar</Link>
-      </div>
-      <div style={{ marginTop: 15, fontSize: 12, alignSelf: 'flex-start' }}>
-        Esqueci minha senha. <Link to="/forgot">Recuperar</Link>
       </div>
     </form>
   );

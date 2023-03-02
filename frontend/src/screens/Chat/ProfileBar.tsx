@@ -1,17 +1,23 @@
 import { useRef } from 'react';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 import Picture from '../../assets/img/default.png';
 
 const FloatMenu = () => {
-  const handleLogout = () => {};
+  const { signout } = useAuth();
+  const navigate  = useNavigate();
+
+  const handleLogout = () => {
+    signout().finally(() => {
+      navigate("/");
+    })
+  };
 
   return (
     <div className="floatmenu">
       <ul>
-        <li>Criar grupo</li>
-        <li>Configurações</li>
         <li onClick={handleLogout}>Sair</li>
       </ul>
     </div>
